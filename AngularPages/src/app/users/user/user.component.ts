@@ -4,7 +4,7 @@ import { UserService } from 'src/app/shared/user.service';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styles:[]
 })
 export class UserComponent implements OnInit {
 
