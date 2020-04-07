@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FunWebAPI.Models;
+using DataAccesLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -34,8 +34,10 @@ namespace FunWebAPI
                     (resolver as DefaultContractResolver).
                 NamingStrategy = null;
             });
-            services.AddDbContext<UserContext>(options =>
+            services.AddDbContext<DataContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +47,10 @@ namespace FunWebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(options =>
+            options.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
             app.UseRouting();
 
             app.UseAuthorization();
@@ -54,6 +59,8 @@ namespace FunWebAPI
             {
                 endpoints.MapControllers();
             });
+
+
         }
     }
 }

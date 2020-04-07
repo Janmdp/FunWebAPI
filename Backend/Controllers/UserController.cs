@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using FunWebAPI.Models;
+using ModelsClasslibrary;
+using DataAccesLayer;
 
 namespace FunWebAPI.Controllers
 {
@@ -13,9 +14,9 @@ namespace FunWebAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserContext _context;
+        private readonly DataContext _context;
 
-        public UserController(UserContext context)
+        public UserController(DataContext context)
         {
             _context = context;
         }
