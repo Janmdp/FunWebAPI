@@ -1,110 +1,96 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ModelsClasslibrary;
 using DataAccesLayer;
+using FunWebAPI.CRUD;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using ModelsClasslibrary.Users;
+
 
 namespace FunWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
-        private readonly DataContext _context;
-
+        private readonly UserCRUD CRUD;
+        private readonly DataContext context;
         public UserController(DataContext context)
         {
-            _context = context;
+            CRUD = new UserCRUD(context);
+        }
+        [HttpGet("Id")]
+        public string Get(int Id)
+        {
+            
+            var alluserdata = CRUD.GetById(Id);
+            var result = JsonSerializer.Serialize(alluserdata);
+            return result;
         }
 
-        // GET: api/User
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public string GetAll()
         {
-            return await _context.Users.ToListAsync();
-        }
-
-        // GET: api/User/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
+            List<User> alluserdata = CRUD.GetAll();
+            foreach (User obj in alluserdata.ToList())
             {
-                return NotFound();
-            }
-
-            return user;
-        }
-
-        // PUT: api/User/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
-        {
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
+                if (obj.Active == 0)
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
+                    alluserdata.Remove(obj);
                 }
             }
-
-            return NoContent();
+            var result = Newtonsoft.Json.JsonConvert.SerializeObject(alluserdata);
+            return result;
         }
 
-        // POST: api/User
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public string Add([FromBody] User data)
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            User account = new User();
+            account.Username = data.Username;
+            account.Password = data.Password;
+            account.Email = data.Email;
+            account.Active = 1;
+            CRUD.Add(account);
+            return "User " + account.Username + " has been added.";
         }
 
-        // DELETE: api/User/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        [HttpDelete]
+        public string Remove(int Id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            IUser check = context.Users.Find(Id);
+            if (check == null)
             {
-                return NotFound();
+                return "user with Id: " + Id + " does not exist.";
             }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return user;
+            CRUD.DeleteById(Id);
+            return "User with Id: " + Id + " has been removed.";
         }
-
-        private bool UserExists(int id)
+        [HttpPut]
+        public string Update([FromBody] User input)
         {
-            return _context.Users.Any(e => e.Id == id);
+            if (input.Username == null || input.Password == null || input.Email == null || input.Username == "" || input.Password == "" || input.Email == "")
+            {
+                return "Incorrect data given.";
+            }
+            if (input.Active == 2)
+            {
+                return "You cant change data from the ADMIN account.";
+            }
+            
+            IUser oldData = CRUD.GetById(input.UserId); 
+            User updateUser = input;
+            CRUD.UpdateById(input.UserId, updateUser);
+            IUser NewData = CRUD.GetById(input.UserId);
+            return "User succesfully updated.";
         }
     }
 }

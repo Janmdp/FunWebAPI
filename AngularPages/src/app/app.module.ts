@@ -6,7 +6,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
 import { UserComponent } from './users/user/user.component';
-import { UserListComponent } from './users/user-list/user-list.component';
 import { UserService } from './shared/user.service';
 
 @NgModule({
@@ -14,7 +13,6 @@ import { UserService } from './shared/user.service';
     AppComponent,
     UsersComponent,
     UserComponent,
-    UserListComponent
   ],
   imports: [
     BrowserModule,

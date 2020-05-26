@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using ModelsClasslibrary.Shifts;
 
-namespace ModelsClasslibrary
+namespace ModelsClasslibrary.Users
 {
     public interface IUser
     {
-        int Id { get; }
+        int UserId { get; }
         string Username { get; }
         string Password { get; }
         string Email { get; }
