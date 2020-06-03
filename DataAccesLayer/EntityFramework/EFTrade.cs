@@ -9,7 +9,7 @@ using ModelsClasslibrary.Users;
 
 namespace DataAccesLayer.EntityFramework
 {
-    public partial class EFTrade : ITrade
+    public partial class EFTrade
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,18 +17,18 @@ namespace DataAccesLayer.EntityFramework
 
         [Required]
         public int ShiftId { get; set; }
-        public Shift Shift { get; set; }
+        public EFShift Shift { get; set; }
 
         [Required]
         public int ReworkShiftId { get; set; }
-        public Shift ReworkShift { get; set; }
+        public EFShift ReworkShift { get; set; }
 
         [Required]
         public int RequestUserId { get; set; }
-        public User RequestUser { get; set; }
+        public EFUser RequestUser { get; set; }
 
         public int AcceptUserId { get; set; }
-        public User AcceptUser { get; set; }
+        public EFUser AcceptUser { get; set; }
 
         public EFTrade()
         {
@@ -38,10 +38,10 @@ namespace DataAccesLayer.EntityFramework
         public EFTrade(int id, Shift shift, Shift reworkShift, User requestUser, User acceptUser)
         {
             TradeId = id;
-            Shift = shift;
-            ReworkShift = reworkShift;
-            RequestUser = requestUser;
-            AcceptUser = acceptUser;
+            Shift = Converter.ToEfShift(shift);
+            ReworkShift = Converter.ToEfShift(reworkShift);
+            RequestUser = Converter.ToEfUser(requestUser);
+            AcceptUser = Converter.ToEfUser(acceptUser);
         }
     }
 }

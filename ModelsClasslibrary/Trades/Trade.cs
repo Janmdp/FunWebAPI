@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ModelsClasslibrary.Trades
 {
-    public class Trade : ITrade
+    public class Trade
     {
         public int TradeId { get; set; }
 

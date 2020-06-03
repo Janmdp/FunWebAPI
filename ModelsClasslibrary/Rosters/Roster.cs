@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ModelsClasslibrary.Rosters
 {
-    public class Roster : IRoster
+    public class Roster
     {
         public int UserId { get; set; }
         public int ShiftId { get; set; }

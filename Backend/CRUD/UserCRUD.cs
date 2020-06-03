@@ -26,7 +26,7 @@ namespace FunWebAPI.CRUD
             return Account.GetAll();
         }
 
-        public IUser GetById(int Id)
+        public User GetById(int Id)
         {
             return Account.GetById(Id);
         }

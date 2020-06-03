@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ModelsClasslibrary.Shifts
 {
-    public class Shift : IShift
+    public class Shift
     {
         public int ShiftId { get; set; }
         public DateTime Start { get; set; }

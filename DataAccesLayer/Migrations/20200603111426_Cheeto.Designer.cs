@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccesLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200515160926_Db reset 2")]
-    partial class Dbreset2
+    [Migration("20200603111426_Cheeto")]
+    partial class Cheeto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,10 @@ namespace DataAccesLayer.Migrations
 
                     b.HasKey("RosterId");
 
+                    b.HasIndex("ShiftId");
+
+                    b.HasIndex("UserId");
+
                     b.ToTable("Rosters");
                 });
 
@@ -53,29 +57,6 @@ namespace DataAccesLayer.Migrations
                     b.ToTable("Shifts");
                 });
 
-            modelBuilder.Entity("DataAccesLayer.EntityFramework.EFTrade", b =>
-                {
-                    b.Property<int>("TradeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("AcceptUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RequestUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReworkShiftId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ShiftId")
-                        .HasColumnType("int");
-
-                    b.HasKey("TradeId");
-
-                    b.ToTable("Trades");
-                });
-
             modelBuilder.Entity("DataAccesLayer.EntityFramework.EFUser", b =>
                 {
                     b.Property<int>("UserId")
@@ -94,36 +75,26 @@ namespace DataAccesLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("RosterId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ShiftId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("RosterId");
-
-                    b.HasIndex("ShiftId");
-
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DataAccesLayer.EntityFramework.EFUser", b =>
+            modelBuilder.Entity("DataAccesLayer.EntityFramework.EFRoster", b =>
                 {
-                    b.HasOne("DataAccesLayer.EntityFramework.EFRoster", "Roster")
-                        .WithMany()
-                        .HasForeignKey("RosterId")
+                    b.HasOne("DataAccesLayer.EntityFramework.EFShift", "Shift")
+                        .WithMany("Rosters")
+                        .HasForeignKey("ShiftId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccesLayer.EntityFramework.EFShift", "shift")
+                    b.HasOne("DataAccesLayer.EntityFramework.EFUser", "User")
                         .WithMany()
-                        .HasForeignKey("ShiftId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

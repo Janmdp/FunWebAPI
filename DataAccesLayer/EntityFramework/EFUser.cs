@@ -11,7 +11,7 @@ using ModelsClasslibrary.Users;
 
 namespace DataAccesLayer.EntityFramework
 {
-    public partial class EFUser : IUser
+    public partial class EFUser
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -28,7 +28,6 @@ namespace DataAccesLayer.EntityFramework
         [Required]
         [Column(TypeName = "nvarchar(10)")]
         public int Active { get; set; }
-
         public EFUser()
         {
 

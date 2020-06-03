@@ -4,21 +4,24 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using ModelsClasslibrary;
+using ModelsClasslibrary.Rosters;
 using ModelsClasslibrary.Shifts;
 using ModelsClasslibrary.Users;
 
 namespace DataAccesLayer.EntityFramework
 {
     
-    public partial class EFRoster : IRoster
+    public partial class EFRoster
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RosterId { get; set; }
+        
         public int UserId { get; set; }
-        public User User { get; set; }
+        public EFUser User { get; set; }
+        
         public int ShiftId { get; set; }
-        public Shift Shift { get; set; }
+        public virtual EFShift Shift { get; set; }
         [NotMapped]
         public List<Shift> Shifts { get; set; }
 

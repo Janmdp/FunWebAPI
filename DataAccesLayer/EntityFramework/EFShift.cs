@@ -7,7 +7,7 @@ using ModelsClasslibrary.Shifts;
 
 namespace DataAccesLayer.EntityFramework
 {
-    public partial class EFShift : IShift
+    public partial class EFShift
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,7 +16,7 @@ namespace DataAccesLayer.EntityFramework
         public DateTime Start { get; set; }
         [Required]
         public DateTime End { get; set; }
-
+        public ICollection<EFRoster> Rosters { get; set; }
         public EFShift()
         {
             

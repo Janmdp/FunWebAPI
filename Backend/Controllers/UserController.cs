@@ -27,6 +27,7 @@ namespace FunWebAPI.Controllers
         {
             CRUD = new UserCRUD(context);
         }
+
         [HttpGet("Id")]
         public string Get(int Id)
         {
@@ -66,7 +67,7 @@ namespace FunWebAPI.Controllers
         [HttpDelete]
         public string Remove(int Id)
         {
-            IUser check = context.Users.Find(Id);
+            User check = Converter.ToUser(context.Users.Find(Id));
             if (check == null)
             {
                 return "user with Id: " + Id + " does not exist.";
@@ -74,6 +75,7 @@ namespace FunWebAPI.Controllers
             CRUD.DeleteById(Id);
             return "User with Id: " + Id + " has been removed.";
         }
+
         [HttpPut]
         public string Update([FromBody] User input)
         {
@@ -85,11 +87,11 @@ namespace FunWebAPI.Controllers
             {
                 return "You cant change data from the ADMIN account.";
             }
-            
-            IUser oldData = CRUD.GetById(input.UserId); 
+
+            User oldData = CRUD.GetById(input.UserId); 
             User updateUser = input;
             CRUD.UpdateById(input.UserId, updateUser);
-            IUser NewData = CRUD.GetById(input.UserId);
+            User NewData = CRUD.GetById(input.UserId);
             return "User succesfully updated.";
         }
     }

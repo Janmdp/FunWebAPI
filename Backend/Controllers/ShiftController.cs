@@ -32,7 +32,7 @@ namespace FunWebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public IShift Get(int Id)
+        public Shift Get(int Id)
         {
 
             var shiftData = CRUD.GetById(Id);
@@ -61,7 +61,7 @@ namespace FunWebAPI.Controllers
         [HttpDelete("")]
         public string Remove(int Id)
         {
-            IShift check = context.Shifts.Find(Id);
+            Shift check = Converter.ToShift(context.Shifts.Find(Id));
             if (check == null)
             {
                 return "Shift with Id: " + Id + " does not exist.";
@@ -79,7 +79,7 @@ namespace FunWebAPI.Controllers
 
             Shift updateShift = input;
             CRUD.UpdateById(input.ShiftId, updateShift);
-            IShift NewData = CRUD.GetById(input.ShiftId);
+            Shift NewData = CRUD.GetById(input.ShiftId);
             return "Shift succesfully updated.";
         }
     }

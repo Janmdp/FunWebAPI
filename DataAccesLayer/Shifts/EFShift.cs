@@ -7,9 +7,10 @@ using ModelsClasslibrary.Users;
 
 namespace DataAccesLayer.EntityFramework
 {
-    public partial class EFShift : IShift
+    public partial class EFShift
     {
         private DataContext _db;
+        
         public EFShift(DataContext db)
         {
             _db = db;
@@ -31,15 +32,15 @@ namespace DataAccesLayer.EntityFramework
             return result;
         }
 
-        public IShift GetById(int Id)
+        public Shift GetById(int Id)
         {
-            return _db.Shifts.Find(Id);
+            return Converter.ToShift(_db.Shifts.Find(Id));
         }
 
         public void UpdateById(int id, Shift shift)
 
         {
-            IShift newVersion = shift;
+            EFShift newVersion = Converter.ToEfShift(shift);
             var result = _db.Shifts.SingleOrDefault(s => s.ShiftId == id);
             if (result != null)
             {
@@ -63,6 +64,8 @@ namespace DataAccesLayer.EntityFramework
         public void DeleteById(int id)
         {
         }
+
+        
     }
 }
 

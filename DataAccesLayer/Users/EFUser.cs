@@ -7,7 +7,7 @@ using ModelsClasslibrary.Users;
 
 namespace DataAccesLayer.EntityFramework
 {
-    public partial class EFUser : IUser
+    public partial class EFUser
     {
         private DataContext _db;
         public EFUser(DataContext db)
@@ -42,15 +42,15 @@ namespace DataAccesLayer.EntityFramework
             return result;
         }
 
-        public IUser GetById(int Id)
+        public User GetById(int Id)
         {
-            return _db.Users.Find(Id);
+            return Converter.ToUser(_db.Users.Find(Id));
         }
 
         public void UpdateById(int id, User user)
 
         {
-            IUser newversion = user;
+            User newversion = user;
             var result = _db.Users.SingleOrDefault(u => u.UserId == id);
             if (result != null)
             {

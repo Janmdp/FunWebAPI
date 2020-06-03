@@ -72,51 +72,51 @@ namespace DataAccesLayer.EntityFramework
         public Trade GetTradeById(int id)
         {
             EFTrade trade = _db.Trades.Find(id);
-            
-                Trade newTrade = new Trade()
-                {
-                    TradeId = trade.TradeId,
-                    ShiftId = trade.ShiftId,
-                    ReworkShiftId = trade.ReworkShiftId,
-                    RequestUserId = trade.RequestUserId,
-                };
 
-                EFShift Shift = _db.Shifts.Find(newTrade.ShiftId);
-                newTrade.Shift = new Shift()
-                {
-                    ShiftId = Shift.ShiftId,
-                    End = Shift.End,
-                    Start = Shift.Start
-                };
+            Trade newTrade = new Trade()
+            {
+                TradeId = trade.TradeId,
+                ShiftId = trade.ShiftId,
+                ReworkShiftId = trade.ReworkShiftId,
+                RequestUserId = trade.RequestUserId,
+            };
 
-                EFShift rewShift = _db.Shifts.Find(newTrade.ReworkShiftId);
-                newTrade.ReworkShift = new Shift()
-                {
-                    ShiftId = rewShift.ShiftId,
-                    End = rewShift.End,
-                    Start = rewShift.Start
-                };
+            EFShift Shift = _db.Shifts.Find(newTrade.ShiftId);
+            newTrade.Shift = new Shift()
+            {
+                ShiftId = Shift.ShiftId,
+                End = Shift.End,
+                Start = Shift.Start
+            };
 
-                EFUser reqUser = _db.Users.Find(newTrade.RequestUserId);
+            EFShift rewShift = _db.Shifts.Find(newTrade.ReworkShiftId);
+            newTrade.ReworkShift = new Shift()
+            {
+                ShiftId = rewShift.ShiftId,
+                End = rewShift.End,
+                Start = rewShift.Start
+            };
+
+            EFUser reqUser = _db.Users.Find(newTrade.RequestUserId);
+            newTrade.RequestUser = new User()
+            {
+                UserId = reqUser.UserId,
+                Email = reqUser.Email,
+                Username = reqUser.Username
+            };
+
+            if (newTrade.AcceptUserId != null)
+            {
+                EFUser accUser = _db.Users.Find(newTrade.AcceptUserId);
                 newTrade.RequestUser = new User()
                 {
-                    UserId = reqUser.UserId,
-                    Email = reqUser.Email,
-                    Username = reqUser.Username
+                    UserId = accUser.UserId,
+                    Email = accUser.Email,
+                    Username = accUser.Username
                 };
+            }
 
-                if (newTrade.AcceptUserId != null)
-                {
-                    EFUser accUser = _db.Users.Find(newTrade.AcceptUserId);
-                    newTrade.RequestUser = new User()
-                    {
-                        UserId = accUser.UserId,
-                        Email = accUser.Email,
-                        Username = accUser.Username
-                    };
-                }
-
-                return newTrade;
+            return newTrade;
         }
 
         public string CreateTrade(Trade newTrade)

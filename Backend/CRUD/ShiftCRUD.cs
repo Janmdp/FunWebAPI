@@ -27,7 +27,7 @@ namespace FunWebAPI.CRUD
             return Shift.GetAll();
         }
 
-        public IShift GetById(int Id)
+        public Shift GetById(int Id)
         {
             return Shift.GetById(Id);
         }
