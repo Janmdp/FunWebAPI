@@ -18,7 +18,7 @@ namespace FunWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UserController : ControllerBase
     {
         private readonly UserCRUD CRUD;
@@ -53,27 +53,26 @@ namespace FunWebAPI.Controllers
         }
 
         [HttpPost]
-        public string Add([FromBody] User data)
+        public void Add(User data)
         {
             User account = new User();
             account.Username = data.Username;
-            account.Password = data.Password;
+            account.Password = BCrypt.Net.BCrypt.HashPassword(data.Password, 10);
             account.Email = data.Email;
             account.Active = 1;
             CRUD.Add(account);
-            return "User " + account.Username + " has been added.";
+            //return "User " + account.Username + " has been added.";
         }
 
         [HttpDelete]
-        public string Remove(int Id)
+        public async Task<ActionResult<User>> Remove(int Id)
         {
-            User check = Converter.ToUser(context.Users.Find(Id));
+            User check = CRUD.DeleteById(Id);
             if (check == null)
             {
-                return "user with Id: " + Id + " does not exist.";
+                return NotFound();
             }
-            CRUD.DeleteById(Id);
-            return "User with Id: " + Id + " has been removed.";
+            return check;
         }
 
         [HttpPut]

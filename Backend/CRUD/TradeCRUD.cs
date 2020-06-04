@@ -16,5 +16,30 @@ namespace FunWebAPI.CRUD
         {
             Trade = new EFTrade(db);
         }
+
+        public List<Trade> GetAll()
+        {
+            return Trade.GetAll();
+        }
+
+        public Trade GetById(int id)
+        {
+            return Trade.GetTradeById(id);
+        }
+
+        public string DeleteTrade(int id)
+        {
+            return Trade.DeleteTrade(id);
+        }
+
+        public string CompleteTrade(Trade trade)
+        {
+            return Trade.CompleteTrade(trade);
+        }
+
+        public string CreateTrade(Trade trade)
+        {
+            return Trade.CreateTrade(trade);
+        }
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using DataAccesLayer;
 using DataAccesLayer.EntityFramework;
+using ModelsClasslibrary.Rosters;
+using ModelsClasslibrary.Shifts;
 
 namespace FunWebAPI.CRUD
 {
@@ -16,9 +18,22 @@ namespace FunWebAPI.CRUD
             Roster = new EFRoster(db);
         }
 
-        public void GetRoster(int id)
+        public Roster GetRoster(int id)
         {
-            Roster.GetRoster(id);
+            return CheckDates(Roster.GetRoster(id));
+        }
+
+
+        private Roster CheckDates(Roster roster)
+        {
+            foreach (Shift shift in roster.Shifts.ToList())
+            {
+                if(DateTime.Compare(shift.Start, DateTime.Today) < 0 )
+                {
+                    roster.Shifts.Remove(shift);
+                }
+            }
+            return roster;
         }
     }
 }

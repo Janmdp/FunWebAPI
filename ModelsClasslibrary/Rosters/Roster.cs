@@ -9,6 +9,6 @@ namespace ModelsClasslibrary.Rosters
     {
         public int UserId { get; set; }
         public int ShiftId { get; set; }
-        public List<Shift> Shifts { get; set; }
+        public List<Shift> Shifts { get; set; } = new List<Shift>();
     }
 }

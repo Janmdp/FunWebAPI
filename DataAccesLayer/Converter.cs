@@ -111,8 +111,11 @@ namespace DataAccesLayer
                 Shift = ToShift(eftrade.Shift),
                 ReworkShift = ToShift(eftrade.ReworkShift),
                 RequestUser = ToUser(eftrade.RequestUser),
-                AcceptUser = ToUser(eftrade.AcceptUser)
             };
+            if (eftrade.AcceptUser != null)
+            {
+                newTrade.AcceptUser = ToUser(eftrade.AcceptUser);
+            }
 
             return newTrade;
         }

@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/shared/user.service';
 import { NgForm } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
   styles:[]
 })
-export class UserComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   constructor(public service:UserService,
     public toastr: ToastrService) { }
@@ -34,12 +33,12 @@ export class UserComponent implements OnInit {
     }
   }
 
-  onSubmit(form:NgForm)
+  tryLogin(form:NgForm)
   {
-    this.service.postUser(form.value).subscribe(
+    this.service.tryLogin(form.value).subscribe(
       res => {
         this.resetForm(form)
-        this.toastr.success('Submitted successfully', 'User Creation')
+        this.toastr.success('Login successfull', 'Login')
         this.service.refreshList();
       },
       err => {

@@ -33,7 +33,7 @@ namespace FunWebAPI.Controllers
             EFUser login = new EFUser();
             login.Email = account.Email;
             login.Password = account.Password;
-            var userdata = _Db.Users.SingleOrDefault(b => b.Email == account.Email);
+            var userdata = _Db.Users.SingleOrDefault(b => b.Email == account.Email && b.Active > 0);
             IActionResult response = Unauthorized();
             var user = _token.AuthenticateUser(login);
             if (user != null)

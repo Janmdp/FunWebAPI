@@ -16,9 +16,9 @@ namespace FunWebAPI.CRUD
         {
             Account = new EFUser(db);
         }
-        public void DeleteById(int Id)
+        public User DeleteById(int Id)
         {
-            Account.DeleteById(Id);
+           return Account.DeleteById(Id);
         }
 
         public List<User> GetAll()

@@ -44,17 +44,23 @@ namespace FunWebAPI
         public EFUser AuthenticateUser(EFUser login)
         {
             //hier checken met DB of credentials kloppen!
-            var myUser = _db.Users.FirstOrDefault(u => u.Email == login.Email && u.Password == login.Password);
+            var myUser = _db.Users.FirstOrDefault(u => u.Email == login.Email);
             EFUser user = null;
             if (myUser != null)
             {
-                user = new EFUser()
+                // hash and save a password
+                //hashedPassword = BCrypt.Net.BCrypt.HashPassword(submittedPassword);
+                if (BCrypt.Net.BCrypt.Verify(login.Password, myUser.Password))
                 {
-                    Username = myUser.Username,
-                    Password = myUser.Password,
-                    Email = myUser.Email
+                    user = new EFUser()
+                    {
+                        Username = myUser.Username,
+                        Password = myUser.Password,
+                        Email = myUser.Email
 
-                };
+                    };
+                }
+                
             }
             return user;
         }

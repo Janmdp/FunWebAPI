@@ -25,6 +25,5 @@ namespace ModelsClasslibrary.Trades
         public int RequestUserId { get; set; }
 
         public int AcceptUserId { get; set; }
-
     }
 }

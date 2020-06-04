@@ -23,7 +23,7 @@ namespace DataAccesLayer.EntityFramework
         public int ShiftId { get; set; }
         public virtual EFShift Shift { get; set; }
         [NotMapped]
-        public List<Shift> Shifts { get; set; }
+        public List<Shift> Shifts { get; set; } = new List<Shift>();
 
         public EFRoster()
         {

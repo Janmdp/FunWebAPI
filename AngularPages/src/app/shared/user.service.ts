@@ -9,22 +9,34 @@ import * as bcrypt from 'bcryptjs';
 })
 export class UserService {
 formData:User = {
-  Id: null,
-  UserName: null,
+  UserId: null,
+  Username: null,
   Password: null,
   Email: null,
   Active: 0
 }
+
 readonly rootURL = "http://localhost:50271/api";
+
+list :User[];
+
   constructor(private http:HttpClient) { }
 
   postUser(formData:User){
-    const salt = bcrypt.genSaltSync(10);
-    formData.Password = bcrypt.hashSync(formData.Password, salt);
-  return this.http.post(this.rootURL+'/user/add',formData)
+  return this.http.post(this.rootURL+'/user',formData)
   }
 
   tryLogin(formData:User){
     return this.http.post(this.rootURL+'/login',formData)
     }
+
+  refreshList(){
+    this.http.get(this.rootURL+'/user')
+    .toPromise()
+    .then(res => this.list = res as User[])
+  }
+
+  deleteUser(id){
+    return this.http.delete(this.rootURL+'/user?Id='+ id)
+  }
 }

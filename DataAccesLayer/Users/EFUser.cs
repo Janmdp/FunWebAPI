@@ -14,7 +14,7 @@ namespace DataAccesLayer.EntityFramework
         {
             _db = db;
         }
-        public void DeleteById(int Id)
+        public User DeleteById(int Id)
         {
             var result = _db.Users.SingleOrDefault(b => b.UserId == Id);
             if (result != null)
@@ -22,6 +22,8 @@ namespace DataAccesLayer.EntityFramework
                 result.Active = 0;
                 _db.SaveChanges();
             }
+
+            return Converter.ToUser(result);
         }
 
         public List<User> GetAll()

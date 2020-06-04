@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using DataAccesLayer;
 using FunWebAPI.CRUD;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelsClasslibrary.Shifts;
@@ -13,6 +14,7 @@ namespace FunWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ShiftController : ControllerBase
     {
         private readonly ShiftCRUD CRUD;

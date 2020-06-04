@@ -27,7 +27,7 @@ namespace DataAccesLayer.EntityFramework
         public int RequestUserId { get; set; }
         public EFUser RequestUser { get; set; }
 
-        public int AcceptUserId { get; set; }
+        public int? AcceptUserId { get; set; }
         public EFUser AcceptUser { get; set; }
 
         public EFTrade()
