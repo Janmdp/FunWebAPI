@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from 'src/app/shared/user.service';
+import { UserService } from 'src/app/shared/users/user.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         console.log(err)
+        this.resetForm(form)
       }
     )
   }

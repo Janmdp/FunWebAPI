@@ -8,7 +8,7 @@ import { ToastrModule } from "ngx-toastr";
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
 import { UserComponent } from './users/user/user.component';
-import { UserService } from './shared/user.service';
+import { UserService } from './shared/users/user.service';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { LoginComponent } from './users/login/login.component';
 
