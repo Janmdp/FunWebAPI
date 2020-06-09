@@ -1,3 +1,8 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a href="" class="navbar-brand text-white">Roster Application</a>
+    <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
+</nav>
+
 <table class="table table-hover">
     <tr *ngFor="let us of service.list">
         <td (click)="populateForm(us)">{{us.UserId}}</td>

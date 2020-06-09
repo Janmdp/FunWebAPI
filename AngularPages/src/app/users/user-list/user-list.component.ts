@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/users/user.service';
 import { User } from 'src/app/shared/users/user.model';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -12,7 +13,8 @@ import { ToastrService } from 'ngx-toastr';
 export class UserListComponent implements OnInit {
 
   constructor(public service: UserService,
-    public toastr: ToastrService) { }
+    public toastr: ToastrService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.service.refreshList();
@@ -35,5 +37,11 @@ export class UserListComponent implements OnInit {
     })
     }
 
+  }
+
+  onLogout(){
+    localStorage.removeItem('currentUser');
+    this.router.navigateByUrl('');
+    this.toastr.success('Succesfully logged out', 'Logout');
   }
 }

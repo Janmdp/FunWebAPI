@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/shared/users/user.service';
 import { NgForm } from '@angular/forms';
+import { User } from 'src/app/shared/users/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +14,25 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   constructor(public service:UserService,
-    public toastr: ToastrService) { }
+    public toastr: ToastrService,
+    private router: Router) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('currentUser')!= null){
+      this.router.navigateByUrl('/home');
+    }
   }
 
+  currentUser: User ={
+    UserId: null,
+    Username: null,
+    Password: null,
+    Email: null,
+    Active: 0,
+    Token: null
+  }
+
+  
 
   resetForm(form?:NgForm)
   {
@@ -28,7 +44,8 @@ export class LoginComponent implements OnInit {
         Username: null,
         Password: null,
         Email: null,
-        Active: 0
+        Active: 0,
+        Token: null
       }
     }
   }
@@ -36,14 +53,22 @@ export class LoginComponent implements OnInit {
   tryLogin(form:NgForm)
   {
     this.service.tryLogin(form.value).subscribe(
-      res => {
-        this.resetForm(form)
-        this.toastr.success('Login successfull', 'Login')
-        this.service.refreshList();
+      (res: any) => {
+        this.currentUser = res as User;
+        localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
+        this.resetForm(form);
+        this.toastr.success('Login successfull', 'Login');
+        this.router.navigateByUrl('/home');
       },
       err => {
-        console.log(err)
-        this.resetForm(form)
+        if(err.status == 400)
+        {
+          this.toastr.error('Incorrect username or password', 'Authentication failed');
+        }
+        else
+        {
+          console.log(err)
+        }
       }
     )
   }

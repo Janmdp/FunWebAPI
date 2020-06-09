@@ -29,7 +29,8 @@ export class UserComponent implements OnInit {
         Username: null,
         Password: null,
         Email: null,
-        Active: 0
+        Active: 0,
+        Token: null
       }
     }
   }

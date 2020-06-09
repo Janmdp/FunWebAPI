@@ -11,6 +11,14 @@ import { UserComponent } from './users/user/user.component';
 import { UserService } from './shared/users/user.service';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { LoginComponent } from './users/login/login.component';
+import { ShiftsComponent } from './shifts/shifts.component';
+import { ShiftComponent } from './shifts/shift/shift.component';
+import { ShiftListComponent } from './shifts/shift-list/shift-list.component';
+import { CookieService } from 'ngx-cookie-service';
+import { ShiftService } from './shared/shifts/shift.service';
+import { RosterService } from './shared/rosters/roster.service';
+import { TradeService } from './shared/trades/trade.service';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,15 +27,19 @@ import { LoginComponent } from './users/login/login.component';
     UserComponent,
     UserListComponent,
     LoginComponent,
+    ShiftsComponent,
+    ShiftComponent,
+    ShiftListComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    AppRoutingModule,
   ],
-  providers: [UserService],
+  providers: [UserService,  ShiftService, RosterService, TradeService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
