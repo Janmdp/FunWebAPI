@@ -18,6 +18,3 @@ input.ng-valid {
     opacity: 1;
 }
 
-table tr:hover {
-    cursor: pointer;
-}

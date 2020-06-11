@@ -22,14 +22,14 @@ namespace FunWebAPI.Controllers
             CRUD = new TradeCRUD(context);
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public List<Trade> GetAll()
         {
             var result = CRUD.GetAll();
             return result;
         }
 
-        [HttpGet("id")]
+        [HttpGet]
         public Trade GetById(int id)
         {
             var result = CRUD.GetById(id);

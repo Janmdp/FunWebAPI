@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Shift } from './shift.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from '../users/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,30 @@ export class ShiftService {
   readonly rootURL = "http://localhost:50271/api";
 
   shiftList: Shift[];
+  roster: Shift[];
 
   constructor(private http:HttpClient) { }
 
-  refreshList(){
-    this.http.get(this.rootURL+'/shift')
+  getRoster(){
+    var user: User = JSON.parse(localStorage.getItem('currentUser'));
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + user.Token});
+    this.http.get(this.rootURL+'/roster?Id=' + user.UserId, { headers : tokenHeader} )
     .toPromise()
-    .then(res => this.shiftList = res as Shift[])
+    .then(res => {
+      this.roster = res as Shift[];
+      //console.log(res);
+      //console.log(this.roster);
+    })
+  }
+  refreshList(){
+    var user: User = JSON.parse(localStorage.getItem('currentUser'));
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + user.Token});
+    this.http.get(this.rootURL+'/shift' + user.UserId, { headers : tokenHeader} )
+    .toPromise()
+    .then(res => {
+    this.shiftList = res as Shift[];
+      //console.log(res);
+      //console.log(this.roster);
+    })
   }
 }

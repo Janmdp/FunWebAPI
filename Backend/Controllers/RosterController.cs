@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelsClasslibrary.Rosters;
+using ModelsClasslibrary.Shifts;
 using ModelsClasslibrary.Users;
 
 namespace FunWebAPI.Controllers
@@ -25,9 +26,10 @@ namespace FunWebAPI.Controllers
         }
 
         [HttpGet("")]
-        public Roster GetRoster(int Id)
+        public List<Shift> GetRoster(int Id)
         {
-           return CRUD.GetRoster(Id);
+            Roster help = CRUD.GetRoster(Id);
+            return help.Shifts;
         }
     }
 }

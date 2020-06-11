@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Trade } from './trade.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from '../users/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +27,13 @@ tradeList: Trade[];
   constructor(private http:HttpClient) { }
 
   refreshList(){
-    this.http.get(this.rootURL+'/trade')
+    console.log('pepega');
+    var user: User = JSON.parse(localStorage.getItem('currentUser'));
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + user.Token});
+    this.http.get(this.rootURL+'/trade/all', { headers : tokenHeader})
     .toPromise()
-    .then(res => this.tradeList = res as Trade[])
+    .then(res => this.tradeList = res as Trade[]);
+    
   }
 
 }

@@ -56,10 +56,20 @@ namespace DataAccesLayer.EntityFramework
             var result = _db.Users.SingleOrDefault(u => u.UserId == id);
             if (result != null)
             {
-                result.Username = newversion.Username;
-                result.Password = newversion.Password;
-                result.Email = newversion.Email;
-                result.Active = newversion.Active;
+                if (newversion.Username != null)
+                {
+                    result.Username = newversion.Username;
+                }
+               
+                if (newversion.Password != null)
+                {
+                    result.Password = newversion.Password;
+                }
+
+                if (newversion.Email != null)
+                {
+                    result.Email = newversion.Email;
+                }
                 _db.SaveChanges();
             }
         }

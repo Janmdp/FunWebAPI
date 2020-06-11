@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/shared/users/user.service';
 import { NgForm } from '@angular/forms';
+import { UserService } from 'src/app/shared/users/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { User } from 'src/app/shared/users/user.model';
 import { Router } from '@angular/router';
-
+import { User } from 'src/app/shared/users/user.model';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css'],
-  styles:[]
+  selector: 'app-user-update',
+  templateUrl: './user-update.component.html',
+  styleUrls: ['./user-update.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserUpdateComponent implements OnInit {
 
   constructor(public service:UserService,
     public toastr: ToastrService,
@@ -65,10 +63,10 @@ export class UserComponent implements OnInit {
   {
     var test = form.value as User;
     test.UserId = this.service.profile.UserId;
-    this.service.postUser(test).subscribe(
+    this.service.updateUser(test).subscribe(
       res => {
         this.resetForm(form)
-        this.toastr.success('Submitted successfully', 'User Created')
+        this.toastr.success('Submitted successfully', 'User Update')
         this.router.navigateByUrl('profile');
       },
       err => {
@@ -76,4 +74,5 @@ export class UserComponent implements OnInit {
       }
     )
   }
+
 }

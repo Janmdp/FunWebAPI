@@ -35,7 +35,7 @@ namespace FunWebAPI
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Issuer"],
                 claims,
-                expires: DateTime.Now.AddMinutes(120),
+                expires: DateTime.Now.AddDays(830),
                 signingCredentials: credentials);
 
             var encodetoken = new JwtSecurityTokenHandler().WriteToken(Token);

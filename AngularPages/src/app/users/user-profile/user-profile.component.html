@@ -1,0 +1,11 @@
+<app-navbar></app-navbar>
+
+<div id="container">
+    <h2>Profile</h2>
+    <p>
+        <strong>Name:</strong> {{ service.profile.Username }}<br>
+        <strong>Password:</strong> **********<br>
+        <strong>Email:</strong> {{ service.profile.Email }}
+    </p>
+    <button class="btn btn-info" (click)="onUpdate()">Update</button>
+</div>

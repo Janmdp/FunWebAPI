@@ -1,5 +1,8 @@
-button{
-    background-color: green;
+button {
+    background-color: #ddd;
+    border-color: black;
+    margin-left: 250px;
+    color: black;
 }
 
 #container {

@@ -18,7 +18,7 @@ namespace FunWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UserController : ControllerBase
     {
         private readonly UserCRUD CRUD;
@@ -28,7 +28,7 @@ namespace FunWebAPI.Controllers
             CRUD = new UserCRUD(context);
         }
 
-        [HttpGet("Id")]
+        [HttpGet]
         public string Get(int Id)
         {
             
@@ -37,7 +37,7 @@ namespace FunWebAPI.Controllers
             return result;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public string GetAll()
         {
             List<User> alluserdata = CRUD.GetAll();
@@ -89,6 +89,7 @@ namespace FunWebAPI.Controllers
 
             User oldData = CRUD.GetById(input.UserId); 
             User updateUser = input;
+            updateUser.Password = BCrypt.Net.BCrypt.HashPassword(updateUser.Password, 10);
             CRUD.UpdateById(input.UserId, updateUser);
             User NewData = CRUD.GetById(input.UserId);
             return "User succesfully updated.";
