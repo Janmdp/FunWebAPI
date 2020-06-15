@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using ModelsClasslibrary.Rosters;
 using ModelsClasslibrary.Shifts;
 using ModelsClasslibrary.Users;
 
@@ -10,10 +12,11 @@ namespace DataAccesLayer.EntityFramework
     public partial class EFShift
     {
         private DataContext _db;
-        
+        private EFRoster rost;
         public EFShift(DataContext db)
         {
             _db = db;
+            rost = new EFRoster(db);
         }
 
         public List<Shift> GetAll()
@@ -28,6 +31,31 @@ namespace DataAccesLayer.EntityFramework
                     Start = shift.Start,
                     End = shift.End
                 });
+            }
+            return result;
+        }
+
+        public List<Shift> GetAllFree(int userId)
+        {
+            var shifts = _db.Shifts.ToList();
+            Roster roster = rost.GetRoster(userId);
+            List<Shift> result = new List<Shift>();
+            foreach (EFShift shift in shifts.ToList())
+            {
+                foreach (Shift shif in roster.Shifts )
+                {
+                    if (shif.ShiftId == shift.ShiftId)
+                    {
+                        //nothing cabron
+                        shifts.Remove(shift);
+                    }
+                }
+                
+            }
+
+            foreach (EFShift shift in shifts.ToList())
+            {
+                result.Add(Converter.ToShift(shift));
             }
             return result;
         }

@@ -22,8 +22,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './pages/Misc/navbar/navbar.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { UserUpdateComponent } from './users/user-update/user-update.component';
-import { TradeComponent } from './trades/trade/trade.component';
 import { TradeListComponent } from './trades/trade-list/trade-list.component';
+import { TradeComponent} from './pages/trade/trade.component';
+import { TradeCreateComponent } from './trades/trade-create/trade-create.component'
 
 
 
@@ -43,6 +44,7 @@ import { TradeListComponent } from './trades/trade-list/trade-list.component';
     UserUpdateComponent,
     TradeComponent,
     TradeListComponent,
+    TradeCreateComponent,
   ],
   imports: [
     BrowserModule,

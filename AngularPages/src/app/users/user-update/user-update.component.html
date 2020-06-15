@@ -3,36 +3,21 @@
     <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
         <div class="form-group">
             <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text bg-white">
-                        <i class="fas fa-user-circle" [class.green-icon]="Username.valid" [class.red-icon]="Username.invalid && Username.touched"></i>
-                    </div>
-                </div>
                 <input name="Username" #Username="ngModel" [(ngModel)]="service.profile.Username" class="form-control" placeholder="Username">
             </div>
         </div>
         <div class="form-group">
             <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text bg-white">
-                        <i class="fas fa-key" [class.green-icon]="Password.valid || Password.pristine" [class.red-icon]="Password.invalid && Password.touched"></i>
-                    </div>
-                </div>
                 <input type="password" name="Password" #Password="ngModel" [(ngModel)]="service.profile.Password" class="form-control" placeholder="Password" minlength="7">
             </div>
         </div>
         <div class="form-group">
             <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text bg-white">
-                        <i class="fas fa-envelope-square" [class.green-icon]="Email.valid" [class.red-icon]="Email.invalid && Email.touched"></i>
-                    </div>
-                </div>
                 <input type="email" name="Email" #Email="ngModel" [(ngModel)]="service.profile.Email" class="form-control" placeholder="Email">
             </div>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-succes btn-lg btn-block"><i class="fas fa-sign-in-alt"></i>Update</button>
+            <button type="submit" class="btn btn-succes"><i class="fas fa-sign-in-alt"></i>Update</button>
         </div>
     </form>
 </div>

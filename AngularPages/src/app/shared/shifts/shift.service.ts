@@ -17,7 +17,7 @@ export class ShiftService {
 
   shiftList: Shift[];
   roster: Shift[];
-
+  rosterFree: Shift[];
   constructor(private http:HttpClient) { }
 
   getRoster(){
@@ -31,6 +31,20 @@ export class ShiftService {
       //console.log(this.roster);
     })
   }
+
+  getRosterFree(){
+    var user: User = JSON.parse(localStorage.getItem('currentUser'));
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + user.Token});
+    this.http.get(this.rootURL+'/shift/free?Id=' + user.UserId, { headers : tokenHeader} )
+    .toPromise()
+    .then(res => {
+      this.rosterFree = res as Shift[];
+      console.log(res);
+      console.log(this.rosterFree);
+    })
+  }
+
+  
   refreshList(){
     var user: User = JSON.parse(localStorage.getItem('currentUser'));
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + user.Token});

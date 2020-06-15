@@ -3,11 +3,9 @@
 }
 
 .table th {
-    padding-top: 12px;
+padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #4CAF50;
-  color: white;
 }
 
 .table td th {
@@ -19,9 +17,7 @@ table tr:hover {
     background-color: rgba(172, 172, 172, 0.945);
 }
 
-#container {
-    width: 600px;
-    margin: 0 auto; 
-    margin-top: 50px;
-    text-align: center;
+#createTrade {
+    margin-bottom: 5px;
+    margin-left: 450px;
 }

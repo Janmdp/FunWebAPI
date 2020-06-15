@@ -78,7 +78,7 @@ namespace FunWebAPI.Controllers
         [HttpPut]
         public string Update([FromBody] User input)
         {
-            if (input.Username == null || input.Password == null || input.Email == null || input.Username == "" || input.Password == "" || input.Email == "")
+            if (input.Username == null  || input.Email == null || input.Username == "" || input.Email == "")
             {
                 return "Incorrect data given.";
             }
@@ -89,7 +89,10 @@ namespace FunWebAPI.Controllers
 
             User oldData = CRUD.GetById(input.UserId); 
             User updateUser = input;
-            updateUser.Password = BCrypt.Net.BCrypt.HashPassword(updateUser.Password, 10);
+            if (updateUser.Password != null)
+            {
+                updateUser.Password = BCrypt.Net.BCrypt.HashPassword(updateUser.Password, 10);
+            }
             CRUD.UpdateById(input.UserId, updateUser);
             User NewData = CRUD.GetById(input.UserId);
             return "User succesfully updated.";

@@ -1,7 +1,6 @@
-button{
-    background-color: green;
+button {
+    border-color: black;
 }
-
 #container {
     margin: 0 auto; 
     width: 350px;

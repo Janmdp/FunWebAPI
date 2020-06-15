@@ -33,6 +33,15 @@ namespace FunWebAPI.Controllers
 
         }
 
+        [HttpGet("free")]
+        public List<Shift> GetAllFree(int Id)
+        {
+
+            var allShiftData = CRUD.GetAllFree(Id);
+            return allShiftData;
+
+        }
+
         [HttpGet("{id}")]
         public Shift Get(int Id)
         {

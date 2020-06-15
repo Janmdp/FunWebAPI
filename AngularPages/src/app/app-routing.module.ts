@@ -9,6 +9,7 @@ import { UserComponent } from './users/user/user.component';
 import { UserUpdateComponent } from './users/user-update/user-update.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { TradeListComponent } from './trades/trade-list/trade-list.component';
+import { TradeComponent } from './pages/trade/trade.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate:[AuthGuard] },
   { path: 'profile', component: UserProfileComponent, canActivate:[AuthGuard]},
   { path: 'update', component: UserUpdateComponent, canActivate:[AuthGuard]},
-  { path: 'trades', component: TradeListComponent, canActivate:[AuthGuard]},
+  { path: 'trades', component: TradeComponent, canActivate:[AuthGuard]},
   { path: 'register', component: UserComponent, canActivate:[AuthGuard]}];
 
 @NgModule({

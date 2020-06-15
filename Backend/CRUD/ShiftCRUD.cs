@@ -27,6 +27,12 @@ namespace FunWebAPI.CRUD
             return Shift.GetAll();
         }
 
+        public List<Shift> GetAllFree(int userId)
+        {
+            List<Shift> toReturn = Shift.GetAllFree(userId);
+            return toReturn;
+        }
+
         public Shift GetById(int Id)
         {
             return Shift.GetById(Id);

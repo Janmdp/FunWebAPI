@@ -23,9 +23,9 @@ namespace FunWebAPI.Controllers
         }
 
         [HttpGet("all")]
-        public List<Trade> GetAll()
+        public List<Trade> GetAll(int Id)
         {
-            var result = CRUD.GetAll();
+            var result = CRUD.GetAll(Id);
             return result;
         }
 
@@ -51,6 +51,8 @@ namespace FunWebAPI.Controllers
         [HttpPut]
         public string CompleteTrade(Trade trade)
         {
+            Trade test = new Trade();
+            test = trade;
             return CRUD.CompleteTrade(trade);
         }
     }
