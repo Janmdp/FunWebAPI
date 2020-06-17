@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TradeListComponent } from './trade-list.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrService, ToastrModule } from 'ngx-toastr';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 describe('TradeListComponent', () => {
   let component: TradeListComponent;
@@ -8,7 +11,8 @@ describe('TradeListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TradeListComponent ]
+      declarations: [ TradeListComponent ],
+      imports: [ HttpClientModule,  ToastrModule.forRoot(), AppRoutingModule ]
     })
     .compileComponents();
   }));

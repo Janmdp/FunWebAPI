@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserUpdateComponent } from './user-update.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { FormsModule } from '@angular/forms';
 
 describe('UserUpdateComponent', () => {
   let component: UserUpdateComponent;
@@ -8,7 +12,8 @@ describe('UserUpdateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserUpdateComponent ]
+      declarations: [ UserUpdateComponent ],
+      imports: [ HttpClientModule,  ToastrModule.forRoot(), AppRoutingModule, FormsModule ]
     })
     .compileComponents();
   }));

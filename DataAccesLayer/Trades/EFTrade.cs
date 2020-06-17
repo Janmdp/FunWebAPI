@@ -24,7 +24,7 @@ namespace DataAccesLayer.EntityFramework
         {
             
             Roster roster = rost.GetRoster(userId);
-            var trades = _db.Trades.Include("Shift").Include("ReworkShift").Include("RequestUser").Include("AcceptUser")
+            var trades = _db.Trades.Include("Shift").Include("ReworkShift").Include("RequestUser").Include("AcceptUser").Where(t => t.AcceptUserId == null)
                 .ToList();
             List<Trade> result = new List<Trade>();
             foreach (EFTrade trade in trades)

@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(public service:UserService,
     public toastr: ToastrService,
     private router: Router) { }
-
+  
   ngOnInit(): void {
     if(localStorage.getItem('currentUser')!= null){
       this.router.navigateByUrl('/home');

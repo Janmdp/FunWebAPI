@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -8,7 +11,8 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [ HomeComponent ],
+      imports: [ HttpClientModule,  ToastrModule.forRoot(), AppRoutingModule ]
     })
     .compileComponents();
   }));
