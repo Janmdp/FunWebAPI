@@ -6,7 +6,7 @@ describe('user', () => {
 
 
     beforeEach(() => {
-        cy.visit('localhost:4200/login');
+        cy.login(Email,Password)
     })
     
     it('works i hope', () => {
@@ -14,9 +14,6 @@ describe('user', () => {
     })
     
     it('login', () => {
-        cy.get('input[name=Email]').type(Email);
-        cy.get('input[name=Password]').type(Password);
-        cy.get('button[type=submit]').click();
         cy.url().should('include', 'home');
     })
 })
