@@ -22,6 +22,11 @@ namespace FunWebAPI.CRUD
             return Trade.GetAll(userId);
         }
 
+        public List<Trade> GetMyTrades(int userId)
+        {
+            return Trade.GetMyTrades(userId);
+        }
+
         public Trade GetById(int id)
         {
             return Trade.GetTradeById(id);

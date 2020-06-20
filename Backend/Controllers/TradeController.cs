@@ -36,24 +36,31 @@ namespace FunWebAPI.Controllers
             return result;
         }
 
-        [HttpDelete]
-        public string DeleteTrade(int id)
+        [HttpGet("my")]
+        public List<Trade> GetMyTrades(int id)
         {
-            return CRUD.DeleteTrade(id);
+            var result = CRUD.GetMyTrades(id);
+            return result;
+        }
+
+        [HttpDelete]
+        public void DeleteTrade(int id)
+        {
+            CRUD.DeleteTrade(id);
         }
 
         [HttpPost]
-        public string CreateTrade(Trade trade)
+        public void CreateTrade(Trade trade)
         {
-            return CRUD.CreateTrade(trade);
+           CRUD.CreateTrade(trade);
         }
 
         [HttpPut]
-        public string CompleteTrade(Trade trade)
+        public void CompleteTrade(Trade trade)
         {
             Trade test = new Trade();
             test = trade;
-            return CRUD.CompleteTrade(trade);
+            CRUD.CompleteTrade(trade);
         }
     }
 }

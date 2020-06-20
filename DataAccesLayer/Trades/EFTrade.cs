@@ -49,6 +49,32 @@ namespace DataAccesLayer.EntityFramework
             return result;
         }
 
+        public List<Trade> GetMyTrades(int userId)
+        {
+
+            Roster roster = rost.GetRoster(userId);
+            var trades = _db.Trades.Include("Shift").Include("ReworkShift").Include("RequestUser").Include("AcceptUser").Where(t => t.AcceptUserId == null)
+                .ToList();
+            List<Trade> result = new List<Trade>();
+            foreach (EFTrade trade in trades)
+            {
+               
+                    if (trade.RequestUser.UserId == userId)
+                    {
+                        Trade newTrade = Converter.ToTrade(trade);
+                        result.Add(newTrade);
+
+                    }
+                    else
+                    {
+                        //nothing cabron
+                    }
+               
+
+            }
+            return result;
+        }
+
         public Trade GetTradeById(int id)
         {
             var trade = _db.Trades.Include("Shift").Include("ReworkShift").Include("RequestUser").Include("AcceptUser")
