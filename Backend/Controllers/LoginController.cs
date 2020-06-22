@@ -39,7 +39,7 @@ namespace FunWebAPI.Controllers
             if (user != null)
             {
                 var tokenStr = _token.GenerateJSONWebToken(user);
-                response = Ok(new { Token = tokenStr, userdata.Username, userdata.UserId, userdata.Email });
+                response = Ok(new { Token = tokenStr, userdata.Username, userdata.UserId, userdata.Email, userdata.Active });
             }
             return response;
         }
