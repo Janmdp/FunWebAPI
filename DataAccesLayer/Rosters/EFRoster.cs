@@ -19,6 +19,12 @@ namespace DataAccesLayer.EntityFramework
         {
             _db = db;
         }
+
+        public void AddRoster(EFRoster newRoster)
+        {
+            _db.Rosters.Add(newRoster);
+            _db.SaveChanges();
+        }
         public Roster GetRoster(int id)
         {
             //var shifts =  _db.Rosters.Join(_db.Users,

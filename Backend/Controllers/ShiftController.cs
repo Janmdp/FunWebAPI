@@ -51,7 +51,7 @@ namespace FunWebAPI.Controllers
         }
 
         [HttpPost]
-        public string Add([FromBody] Shift data)
+        public void Add(Shift data)
         {
             Shift newShift = new Shift()
             {
@@ -60,10 +60,9 @@ namespace FunWebAPI.Controllers
             };
             
             CRUD.Add(newShift);
-            return "Shift has been added.";
         }
-        [Route("all")]
-        [HttpGet]
+        
+        [HttpGet("all")]
         public List<Shift> GetAll()
         {
             List<Shift> allShiftdata = CRUD.GetAll();

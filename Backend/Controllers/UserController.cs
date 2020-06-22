@@ -38,7 +38,7 @@ namespace FunWebAPI.Controllers
         }
 
         [HttpGet("all")]
-        public string GetAll()
+        public List<User> GetAll()
         {
             List<User> alluserdata = CRUD.GetAll();
             foreach (User obj in alluserdata.ToList())
@@ -48,8 +48,8 @@ namespace FunWebAPI.Controllers
                     alluserdata.Remove(obj);
                 }
             }
-            var result = Newtonsoft.Json.JsonConvert.SerializeObject(alluserdata);
-            return result;
+            
+            return alluserdata;
         }
 
         [HttpPost]

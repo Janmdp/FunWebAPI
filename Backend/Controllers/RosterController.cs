@@ -31,5 +31,11 @@ namespace FunWebAPI.Controllers
             Roster help = CRUD.GetRoster(Id);
             return help.Shifts;
         }
+        [HttpPost]
+        public void AddRoster(int userId, int shiftId)
+        {
+            CRUD.AddRoster(userId, shiftId);
+        }
     }
+
 }

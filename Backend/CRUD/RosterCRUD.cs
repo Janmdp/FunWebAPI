@@ -23,6 +23,15 @@ namespace FunWebAPI.CRUD
             return CheckDates(Roster.GetRoster(id));
         }
 
+        public void AddRoster(int userId, int shiftId)
+        {
+            EFRoster newRoster = new EFRoster()
+            {
+                UserId = userId,
+                ShiftId = shiftId
+            };
+            Roster.AddRoster(newRoster);
+        }
 
         private Roster CheckDates(Roster roster)
         {
@@ -35,5 +44,7 @@ namespace FunWebAPI.CRUD
             }
             return roster;
         }
+
+
     }
 }
